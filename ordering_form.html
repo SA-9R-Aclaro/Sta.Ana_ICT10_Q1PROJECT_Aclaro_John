@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Zen+Dots&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.3.1/core.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="module" src="https://pyscript.net/releases/2024.3.1/core.js"></script>
+    <title>Uno Brew - Menu</title>
+    <style>
+        /* General Styles */
+        :root {
+            --font-primary: 'Audiowide', cursive;
+            --font-secondary: 'Zen Dots', cursive;
+        }
+
+        * {
+            font-family: var(--font-primary);
+        }
+        
+        body {
+            background: #111;
+            color: #fff;
+            min-height: 100vh;
+            padding-bottom: 50px;
+            scroll-behavior: smooth;
+            font-family: var(--font-primary);
+        }
+        
+        /* Navigation Bar */
+        .navbar {
+            background: black !important;
+            color: white !important;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            padding: 0.8rem 1rem;
+        }
+        
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 0.5px;
+
+        }
+        
+        .nav-link {
+            color: #fff !important;
+            padding: 8px 15px !important;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link:focus {
+            color: #cfe2ff !important;
+            transform: translateY(-2px);
+        }
+        
+        .navbar-toggler {
+            border-color: rgba(255,255,255,0.5);
+        }
+        
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        
+        .active {
+            background-color: rgba(255,255,255,0.15);
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .nav-item {
+            margin: 0 5px;
+        }
+
+        .blue-theme {
+            --bs-primary: blue-theme;
+            --bs-primary-rgb: 13, 110, 253;
+            --bs-primary-bg-subtle: #cfe2ff;
+        }
+        
+        .order-container {
+            background: black;
+            color: white;
+            border-radius: 10px;
+            box-shadow: none;
+            margin-top: 30px;
+            padding: 1.5rem;
+        }
+        
+        .menu-item {
+            border-left: 3px solid var(--bs-primary);
+            margin-bottom: 15px;
+            padding-left: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .food-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 15px;
+            border: 2px solid white;
+        }
+        
+        .menu-text {
+            flex-grow: 1;
+        }
+        
+        .price-tag {
+            color: white;
+            font-weight: bold;
+        }
+
+        
+        /* Team label base styles */
+        .team-label {
+            transition: all 0.2s ease;
+            font-weight: 600;
+        }
+        .team-label:hover {
+            transform: translateX(4px);
+        }
+
+        /* MCLAREN */
+        .mclaren-label:hover { color: #ffdd57; }
+        .form-check-input:checked + .mclaren-label {
+            color: #ffdd57;
+            text-shadow: 0 0 10px rgba(255, 221, 87, 0.4);
+        }
+
+        /* REDBULL */
+        .redbull-label:hover { color: #e10600; }
+        .form-check-input:checked + .redbull-label {
+            color: #e10600;
+            text-shadow: 0 0 10px rgba(225, 6, 0, 0.4);
+        }
+
+        /* WILLIAMS */
+        .williams-label:hover { color: #005AFF; }
+        .form-check-input:checked + .williams-label {
+            color: #005AFF;
+            text-shadow: 0 0 10px rgba(0, 90, 255, 0.4);
+        }
+
+        /* MERCEDES */
+        .mercedes-label:hover { color: #00134F; }
+        .form-check-input:checked + .mercedes-label {
+            color: #00134F;
+            text-shadow: 0 0 10px rgba(0, 19, 79, 0.4);
+        }
+
+        /* KICK */
+        .kick-label:hover { color: #00E075; }
+        .form-check-input:checked + .kick-label {
+            color: #00E075;
+            text-shadow: 0 0 10px rgba(0, 224, 117, 0.4);
+        }
+        
+        
+        .back-btn {
+            background-color: #fd710d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        
+        .back-btn:hover {
+            background-color: #e5660c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .order-btn {
+            background: #e10600;
+            color: #fff;
+            border-radius: 30px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: none;
+            transition: background 0.3s ease;
+        }
+
+        .order-btn:hover {
+            background: #c10500;
+        }
+    </style>
+</head>
+<body class="blue-theme">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><i class="fas fa-coffee me-2"></i> FORMULA 1 </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="ordering_form.html">Order Now</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact_us.html">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container py-5">
+        <div class="order-container p-4 mb-4">
+            <h1 class="text-primary mb-4 text-center"> F1 2025 CAR SELECTION</h1>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="text-primary mb-3">THE GRID:</h3>
+                    
+                    <div class="form-check menu-item">
+                        <img src="https://mclaren.bloomreach.io/cdn-cgi/image/fit=crop,quality=80,format=webp/delivery/resources/content/gallery/mclaren-racing/formula-1/2025/2025-schedule/united-states-gp/livery-launch/gemini_0000_gfw-front-v1-32_v1.jpg" class="food-img" alt="MCLAREN">
+                        <div class="menu-text">
+                            <input class="form-check-input" type="checkbox" id="item1" value=650000000>
+                            <label class="form-check-label mclaren-label" for="item1">MCLAREN</label>
+                            <div class="price-tag">₱650,000,000.00</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-check menu-item">
+                        <img src="https://global.honda/en/F1/machine/2021_RedBullRB16B/img/main.jpg" class="food-img" alt="REDBULL">
+                        <div class="menu-text">
+                            <input class="form-check-input" type="checkbox" id="item2" value=500000000>
+                            <label class="form-check-label redbull-label team-label" for="item2">REDBULL</label>
+                            <div class="price-tag">₱500,000,000.00</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-check menu-item">
+                        <img src="https://cdn-4.motorsport.com/images/amp/Y998X97Y/s6/williams-racing-fw46.jpg" class="food-img" alt="WILLIAMS">
+                        <div class="menu-text">
+                            <input class="form-check-input" type="checkbox" id="item3" value=100>
+                            <label class="form-check-label williams-label team-label" for="item3">WILLIAMS</label>
+                            <div class="price-tag">₱100.00</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-check menu-item">
+                        <img src="https://media.formula1.com/image/upload/t_16by9Centre/c_lfill,w_3392/q_auto/v1740000000/trackside-images/2024/F1_75_Live___Show/2200466852.webp" class="food-img" alt="MERCEDES">
+                        <div class="menu-text">
+                            <input class="form-check-input" type="checkbox" id="item4" value=500000000>
+                            <label class="form-check-label mercedes-label team-label" for="item4">MERCEDES</label>
+                            <div class="price-tag">₱500,000,000.00</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-check menu-item">
+                        <img src="https://media.formula1.com/image/upload/t_16by9Centre/c_lfill,w_3392/q_auto/v1740000000/fom-website/2023/Kick%20Sauber/C44_ST-Front-left_Stake_ZHO_16-9.webp" class="food-img" alt="SAUBER">
+                        <div class="menu-text">
+                            <input class="form-check-input" type="checkbox" id="item5" value=250000000>
+                            <label class="form-check-label kick-label team-label" for="item5">SAUBER</label>
+                            <div class="price-tag">₱250,000,000.00</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <h3 class="text-primary mb-3">Customer Details:</h3>
+                    <div class="mb-3">
+                        <label for="customer" class="form-label">Customer Name</label>
+                        <input type="text" class="form-control" id="customer" placeholder="Enter your name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" placeholder="Enter your address">
+                    </div>
+                    <div class="mb-3">
+                        <label for="contact_number" class="form-label">Contact Number</label>
+                        <input type="text" class="form-control" id="contact_number" placeholder="Enter your contact number">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-grid gap-2 col-md-6 mx-auto mt-4">
+                <button class="btn btn-primary btn-lg order-btn" type="submit" py-click="create_order">PICK YOUR CAR</button>
+            </div>
+        </div>
+        
+        <div class="order-container p-4">
+            <h3 class="text-primary mb-3"> SELECTION:</h3>
+            <div id="order_output1" class="mb-2"></div>
+            <div id="order_output2" class="mb-2"></div>
+            <div id="order_output3" class="mb-2"></div>
+            <div id="show" class="h4 text-primary mt-3"></div>
+        </div>
+        
+        <button class="btn btn-danger btn-lg mt-2" type="button" id="reset_order" style="width:100%">RESET ORDER</button>
+    </div>
+    
+    <center>
+        <a href="index.html">
+            <button class="back-btn">
+                <i class="fas fa-arrow-left me-2"></i>Back to Home
+            </button>
+        </a>
+    </center>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="py" src="main2.py"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('reset_order').onclick = function() {
+        document.getElementById('item1').checked = false;
+        document.getElementById('item2').checked = false;
+        document.getElementById('item3').checked = false;
+        document.getElementById('item4').checked = false;
+        document.getElementById('item5').checked = false;
+        document.getElementById('order_output1').innerHTML = '';
+        document.getElementById('order_output2').innerHTML = '';
+        document.getElementById('order_output3').innerHTML = '';
+        document.getElementById('show').innerHTML = '';
+    };
+});
+</script>
+</body>
+</html>
